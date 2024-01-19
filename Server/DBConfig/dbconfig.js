@@ -1,4 +1,4 @@
-const { username, password } = require('../credentials');
+const { username, password } = require('./cridentials');
 
 // Construct MongoDB connection URL
 const mongo_url = `mongodb+srv://${username}:${password}@cluster0.frkiogv.mongodb.net/?retryWrites=true&w=majority`;

@@ -1,1 +1,38 @@
-node_modules
+# Node.js
+node_modules/
+
+# macOS
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Yarn
+yarn-error.log
+.yarn-integrity
+
+# Dependency directories
+/jspm_packages/
+/bower_components/
+
+# OS generated files
+ehthumbs.db
+Thumbs.db
+
+# Visual Studio Code
+.vscode/
+
+# IDE files
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
