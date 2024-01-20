@@ -1,14 +1,15 @@
 const { username, password } = require('./cridentials');
 
 // Construct MongoDB connection URL
-const mongo_url = `mongodb+srv://${username}:${password}@cluster0.frkiogv.mongodb.net/?retryWrites=true&w=majority`;
+const mongo_url = `mongodb+srv://${username}:${password}@cluster0.frkiogv.mongodb.net/EcomDB?retryWrites=true&w=majority`;
 
-console.log('MongoDB Connection URL:', mongo_url);
+// console.log('MongoDB Connection URL:', mongo_url);
 
 const mongoose = require('mongoose');
 
 // Connect to MongoDB
-mongoose.connect(mongo_url, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongo_url, { useNewUrlParser: true,
+   useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to MongoDB');
   })
@@ -17,19 +18,19 @@ mongoose.connect(mongo_url, { useNewUrlParser: true, useUnifiedTopology: true })
   });
 
 // Event listeners for MongoDB connection events
-const connection = mongoose.connection;
+// const connection = mongoose.connection;
 
-connection.on('connected', () => {
-  console.log('Mongoose connected to MongoDB');
-});
+// connection.on('connected', () => {
+//   console.log('Mongoose connected to MongoDB');
+// });
 
-connection.on('error', (err) => {
-  console.error('Mongoose connection error:', err);
-});
+// connection.on('error', (err) => {
+//   console.error('Mongoose connection error:', err);
+// });
 
-connection.on('disconnected', () => {
-  console.log('Mongoose disconnected from MongoDB');
-});
+// connection.on('disconnected', () => {
+//   console.log('Mongoose disconnected from MongoDB');
+// });
 
 // Handling application termination
 process.on('SIGINT', () => {
