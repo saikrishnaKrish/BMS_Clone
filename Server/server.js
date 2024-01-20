@@ -2,17 +2,18 @@ const express = require('express');
 require('dotenv').config();
 
 const app = express();
-const dbConfig=require('./DBConfig/dbconfig');
-
-
+const dbConfig = require('./DBConfig/dbconfig');
 const userRoutes = require('./routes/userRoutes');
+require('./models/coursesModel');
+require('./models/headsetModel');
 
-//Middlewares
-app.use(express.json())
+// Middlewares
+app.use(express.json());
 
-//Routes
-app.use('/api/users',userRoutes.router);
+// Routes
+app.use('/api/users', userRoutes.router);
 
+// Use 3000 as a default if PORT is not defined
+const port = process.env.PORT || 3000;
 
-const PORT=8080;
-app.listen(PORT,()=>console.log(`connected to server`,PORT));
+app.listen(port, () => console.log(`Connected to server on port ${port}`));
