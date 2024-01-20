@@ -4,8 +4,6 @@ require('dotenv').config();
 const app = express();
 const dbConfig = require('./DBConfig/dbconfig');
 const userRoutes = require('./routes/userRoutes');
-require('./models/coursesModel');
-require('./models/headsetModel');
 
 // Middlewares
 app.use(express.json());
