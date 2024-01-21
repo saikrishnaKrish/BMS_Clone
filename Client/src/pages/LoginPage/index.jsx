@@ -1,17 +1,31 @@
-import React from 'react'
-import { Form, Button } from "antd";
-import { Link } from "react-router-dom";
+import { Form, Button, message } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import { LoginUser } from '../../apiCalls/users';
+import axios from "axios";
 
 
 const Login = () => {
-    const onFinish = () => {
-        console.log('User Logged in')
+    const navigate = useNavigate();
+
+    const onFinish = async (values) => {
+     try{
+      const response = await LoginUser(values);
+      if(response.success){
+        localStorage.setItem('token',response.data);
+        message.success(response.message)
+      }else{
+        message.error(response.message)
+      }
+      navigate('/')
+     }catch(error){
+      message(error)
+     }
     }
 
     return (
-        <div className="flex justify-center h-screen items-center bg-primary">
+        <div className="flex justify-center h-screen items-center bg-body">
         <div className="card p-3 w-400">
-          <h1 className="text-xl mb-1">Welcome Again! Please Login</h1>
+          <h1 className="text-xl mb-1">Welcome Again!! Please Login</h1>
           <hr />
           <Form layout="vertical" className="mt-1" onFinish={onFinish}>
             <Form.Item

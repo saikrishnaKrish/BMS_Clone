@@ -5,6 +5,7 @@ const app = express();
 const dbConfig = require('./DBConfig/dbconfig');
 const userRoutes = require('./routes/userRoutes');
 
+
 // Middlewares
 app.use(express.json());
 
