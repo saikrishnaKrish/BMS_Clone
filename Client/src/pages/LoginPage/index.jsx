@@ -1,10 +1,16 @@
 import { Form, Button, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginUser } from "../../apiCalls/users";
+import { useEffect } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
+  const token=localStorage.getItem('token');
 
+  useEffect(()=>{
+      (token!=null || undefined) && navigate('/')
+  },[]) 
+  
   const onFinish = async (values) => {
     try {
       const response = await LoginUser(values);
