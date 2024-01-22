@@ -82,10 +82,10 @@ router.get("/", authMiddleware, (req, res) => {
 });
 
 // Protected route
-router.get('/currentUser', authMiddleware, async (req, res) => {
+router.get("/currentUser", authMiddleware, async (req, res) => {
   try {
       const userId = req.body.userId
-      const user = await User.findOne({_id: userId})
+      const user = await userModel.findOne({_id: userId})
 
       if(!user) {
           return res.send({
