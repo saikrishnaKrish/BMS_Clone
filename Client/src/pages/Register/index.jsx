@@ -1,9 +1,16 @@
 import { Form, Button, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { RegisterUser } from "../../apiCalls/users";
+import {useEffect} from 'react';
 
 const Register = () => {
   const navigate = useNavigate();
+  console.log("local storage",
+  localStorage.getItem("token"))
+
+  useEffect(()=>{
+      (localStorage.getItem("token")!=null  && navigate("/"))
+  },[])
 
   const onFinish = async (values) => {
     try {
