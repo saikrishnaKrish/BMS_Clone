@@ -3,6 +3,7 @@ import Home from "../pages/Home";
 import Register from "../pages/Register";
 import Login from "../pages/LoginPage";
 import ProtectedRoute from "./ProtectedRoute";
+import Admin from "../pages/Admin";
 
 const AppRouter = () => {
   return (
@@ -17,6 +18,8 @@ const AppRouter = () => {
                </ProtectedRoute>
             }
           />
+          <Route path="/admin" element={<Admin/>}/>
+          {/* <Route path="/profile" element={<profile/>}/> */}
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
         </Routes>
