@@ -4,7 +4,7 @@ import { Col, Form, Modal, Row, message } from "antd";
 import { hideLoading, showLoading } from "../../redux/loadersSlice";
 import { AddMovie, updateMovie } from "../../apiCalls/movies";
 import PropTypes from "prop-types";
-import Button from "../../components/Button";
+import Button from "../../components/ReusbaleComponents/Button";
 
 const MovieForm = ({
   showMovieFormModal,

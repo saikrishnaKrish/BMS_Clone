@@ -1,9 +1,10 @@
 import { Tabs } from "antd"
 import PageTitle from "../../components/PageTitle"
 import MovieList from "./movieList"
+import TheatreList from "./Profile/TheatreList"
 
 const Admin=()=>{
-    return <div>
+    return <div className="ml-3 mt-3">
             <PageTitle title="Admin"/>
             
             <Tabs defaultActiveKey="1" >
@@ -11,7 +12,8 @@ const Admin=()=>{
                     <MovieList/>
                 </Tabs.TabPane>
                 <Tabs.TabPane tab="Theatres" key="2">
-                    <h1>Theate table</h1>
+                    {/* <h1>Theate table123</h1> */}
+                    <TheatreList/>
                 </Tabs.TabPane>
             </Tabs>
     </div>

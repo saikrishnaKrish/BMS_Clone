@@ -1,11 +1,6 @@
 :root {
     --colour-primary: #DF1827;
     --colour-secondary: #e6b412;
-    --color-background:#9bc97a;
-}
-
-.bg-body{
-    background-color: var(--color-background);
 }
 
 .bg-primary {

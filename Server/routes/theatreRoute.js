@@ -36,6 +36,24 @@ router.get("/getAllTheatresByOwnerId/:userId", async (req, res) => {
   }
 });
 
+router.get('/getAllTheatres',async (req,res)=>{
+  try {
+        const theatres =await theatreModel.find().populate('owner')
+         return res.send({
+          success:true,
+          message:"Theatres fetched Successfully"
+         })
+  } 
+  catch(error){
+    return res.send({
+      success:false,
+      message:"something went wrong",
+      data:error
+    })
+  }
+
+})
+
 router.delete("/delete",async (req,res)=>{
     try{
         const theatreId = req.params.id;

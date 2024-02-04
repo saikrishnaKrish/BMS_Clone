@@ -4,7 +4,7 @@ import MovieForm from "./movieForm";
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/loadersSlice";
 import { DeleteMovie, GetAllMovies } from "../../apiCalls/movies";
-import Button from "../../components/Button";
+import Button from "../../components/ReusbaleComponents/Button";
 import moment from "moment";
 
 const MovieList = () => {
@@ -120,16 +120,17 @@ const MovieList = () => {
   }, []);
 
   return (
-    <div>
-      <div className="flex justify-end mb-1">
-        <Button
+    <div className="container">
+      <Button
           title="Add Movie"
           variant="outlined"
+          // className=""
           onClick={() => {
             setShowMovieFormModal(true);
             setFormType("add");
           }}
         />
+      <div className="flex justify-start">
         <Table columns={columns} dataSource={movies} />
         {showMovieFormModal && (
           <MovieForm
@@ -141,6 +142,7 @@ const MovieList = () => {
             getData={getData}
           />
         )}
+         
       </div>
     </div>
   );

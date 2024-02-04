@@ -18,6 +18,7 @@ const AppRouter = () => {
                </ProtectedRoute>
             }
           />
+          
           <Route path="/admin" element={<Admin/>}/>
           {/* <Route path="/profile" element={<profile/>}/> */}
           <Route path="/register" element={<Register />} />

@@ -1,8 +1,19 @@
-import React from 'react'
+import {Layout} from "antd"
+import ReachOutForm from "../../components/ReachOutForm";
 
- const Home = () => {
+const Home = () => {
+
+  
   return (
-    <div> Welcome back !! I from home page</div>
+    <Layout>
+        <div>
+            Welcome back !! I from home page
+        </div>
+        
+            <div className="reactOutForm">
+                <ReachOutForm/>
+            </div>
+    </Layout>
   )
 }
 
