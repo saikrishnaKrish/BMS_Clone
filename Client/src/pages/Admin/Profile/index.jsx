@@ -1,6 +1,6 @@
 import { Tabs } from "antd";
 import PageTitle from '../../../components/PageTitle';
-import TheatreList from "./TheatreList";
+// import TheatreList from "./TheatreList";
 
 const Profile = ()=>{
     

@@ -18,6 +18,7 @@ router.post("/add", async (req, res) => {
   }
 });
 
+
 router.get("/getAllMovies", async (req, res) => {
   try {
     const movies = await movieModel.find();
@@ -35,6 +36,24 @@ router.get("/getAllMovies", async (req, res) => {
     });
   }
 });
+
+router.get("/getMovieById/:movieId",async (req,res)=>{
+    try{
+        const movieId = req.params.movieId;
+        const movie = await movieModel.findOne({_id:movieId})
+
+        res.send({success:true,
+                  message:'Movie fetched Successfully',
+                  data:movie
+          })
+    }
+    catch(error){
+      return res.status(500).json({
+        success:false,
+        message:"Internal Server Error!"
+      })
+    }
+})
 
 router.delete("/delete/:id", async (req, res) => {
   try {

@@ -11,6 +11,17 @@ export const GetAllTheatresByOwner = async (userId) => {
 };
 
 
+export const GetTheatresByMovie = async (payload)=>{
+  try{
+    const response = await 
+    axiosInstance.post(`/api/theatre/getTheatresByMovieId`,payload);
+    console.log("first",response)
+    return response.data
+  }catch(error){
+    return error;
+  }
+}
+
 export const getAllTheatres = async ()=>{
   try{
     const response = await axiosInstance.get('/api/theatre/getAllTheatres');

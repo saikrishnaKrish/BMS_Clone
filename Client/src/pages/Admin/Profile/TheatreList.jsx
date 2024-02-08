@@ -9,6 +9,7 @@ import {
   GetAllTheatresByOwner,
 } from "../../../apiCalls/theatres";
 import { Table, message } from "antd";
+import Shows from "./Shows";
 
 const TheatreList = () => {
   const { user } = useSelector((state) => state.users);
@@ -17,7 +18,7 @@ const TheatreList = () => {
   const [formType, setFormType] = useState("add");
   const [theatres, setTheatres] = useState([]);
 
-  // const [openShowsModal,setOpenShowModal] = useState(false);
+  const [openShowsModal, setOpenShowsModal] = useState(false);
 
   const dispatch = useDispatch();
   // const navigate = useNavigate();
@@ -28,7 +29,7 @@ const TheatreList = () => {
       const response = await GetAllTheatresByOwner(user._id);
       if (response.success) {
         setTheatres(response.data);
-        console.log("y",response.data)
+        console.log("y", response.data);
       } else {
         message.error(response.message);
       }
@@ -94,10 +95,10 @@ const TheatreList = () => {
             {record.isActive && (
               <span
                 className="underline"
-                // onClick={() => {
-                //   setSelectedTheatre(record);
-                //   setOpenShowsModal(true);
-                // }}
+                onClick={() => {
+                  setSelectedTheatre(record);
+                  setOpenShowsModal(true);
+                }}
               >
                 Shows
               </span>
@@ -108,11 +109,10 @@ const TheatreList = () => {
     },
   ];
 
-
-
-  useEffect(()=>{
-    getData()
-  },[])
+  useEffect(() => {
+    getData();
+  }, []);
+  
   return (
     <div>
       <div className="flex justify-end mb-1">
@@ -132,19 +132,19 @@ const TheatreList = () => {
         <TheatreForm
           showTheatreFormModal={showTheatreFormModal}
           setShowTheatreFormModal={setShowTheatreFormModal}
-
           formType={formType}
           selectedTheatre={selectedTheatre}
           setSelectedTheatre={setSelectedTheatre}
           getData={getData}
         />
       )}
-      {/* {
-            openShowsModal && (
-                <Shows />
-            )
-
-        } */}
+      {openShowsModal && (
+        <Shows
+          openShowsModal={openShowsModal}
+          setOpenShowsModal={setOpenShowsModal}
+          theatre={selectedTheatre}
+        />
+      )}
     </div>
   );
 };
