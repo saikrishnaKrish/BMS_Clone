@@ -243,3 +243,348 @@ let res1=1
 let aa = arr1.reduce((res1,curr)=>(res1*curr)) 
 console.log(arr1)
 console.log(aa)
+
+
+
+================================
+
+
+
+console.log("b value",b)
+console.log("a value",a)
+{
+console.log("b value",b)
+    var b=88
+    console.log("a value",a)
+    let a=855
+
+}
+
+let b;
+console.log(b)
+
+console.log(b)
+
+
+// value can also be function
+
+
+
+
+
+
+let um={
+    length:90,
+    width:50,
+    cost:100,
+    ca: function calculateArea(){
+        this.cost=this.cost+50;
+        return "length "+ um.length+" width " +this.width+" cost " 
+        + this.cost+" weight "+this.weight
+    }
+}
+
+
+// console.log(um.length)
+console.log(um.ca())
+
+var weight ="500gm"
+let um={
+    length:90,
+    width:50,
+    cost:100,
+    ca: calculateArea=()=>{
+        this.cost=this.cost+50;
+        return "length "+ um.length+" width " +this.width+" cost " 
+        + this.cost+" weight "+globalThis
+    }
+}
+
+
+// console.log(um.length)
+console.log(um.ca())
+// The value of this will depend on the calling function
+//arrow functions does not have value access to this.
+var weight ="500gm"
+
+console.log(globalThis.weight)
+
+
+let cap = {
+    firstName : "Steve",
+    sayHi : function(){
+        console.log("53", this.firstName);
+        const iAmInner = function(){
+            console.log("55",this.firstName);
+        }
+        iAmInner();
+    }
+}
+cap.sayHi();
+
+
+
+let cap = {
+    firstName : "Steve",
+    sayHi : function(){
+        console.log("53", this.firstName);
+        const iAmInner = () => {
+            console.log("55",this.firstName);
+        }
+        iAmInner();
+    }
+}
+cap.sayHi();
+
+
+// op:
+
+var firstName = "Loki"
+let cap = {
+    firstName : "Steve",
+    sayHi : () => {
+        console.log("53", this.firstName);
+        const iAmInner = () => {
+            console.log("55", this.firstName);
+        }
+        iAmInner();
+    }
+}
+cap.sayHi();
+
+
+
+let ladder = {
+    stop:0,
+    up(){
+        this.stop ++ ;
+    },
+    down(){
+        this.stop -- ;
+    }
+    showStep: function(){
+        console.log(this.stop);
+    }
+}
+ladder.up();
+ladder.up();
+ladder.up();
+ladder.down();
+ladder.showStep();
+
+===================================================
+
+
+let cap = {
+    name: "Steve",
+    team: "cap",
+    petersTeam: function(mem1, mem2,...args){
+        console.log(`Hey ${this.name} am your neighborhood spiderman and I belong to ${this.team}'s team`);
+        console.log(`I am working with ${mem1} & ${mem2} & ${args} `);
+    }
+}
+let ironMan = {
+    name: "Tony", 
+    team: "iron man"
+}
+
+//  borrowing a function and can use it for another object without actually adding into it. 
+//We can also pass parameters for that function.
+// cap.petersTeam.apply(ironMan,["natasha", "war machine", "natasha", "natasha2", "natasha4"]);
+
+const boundfn=cap.petersTeam.bind(ironMan)
+console.log(boundfn("q","p"))
+
+
+
+let sum = function(){
+    let sum=0;
+        for(let i=0;i<this.length;i++){
+            sum=sum+this[i]
+        }
+console.log(sum)
+
+
+}
+
+
+let a=[8,899,7,88,8]
+
+console.log(Array.isArray(a))
+
+console.log( a.__proto__)
+
+console.log(typeof sum)
+
+// ===============================================/
+
+function fi(...args){
+    console.log(arguments[1]==8)
+    console.log(args)
+}
+
+fi(5,8,6,8,6,8,6,8,6,8,6)
+
+
+let arr=[1,3,4,5]
+let arr2=arr //---refernece
+console.log(arr2)
+console.log(arr)
+arr2[2]=99;
+
+console.log(arr2)
+console.log(arr)
+
+
+=========================================================
+
+console.log(0==null)
+console.log(undefined==null)
+console.log(typeof String)
+console.log(undefined==undefined)
+
+
+console.log(+null);//null   //0
+console.log(null);//null    //null
+console.log(!"");//false    //tryue
+console.log(+undefined); //true  //NAN
+console.log(undefined);//undefined     //undefined
+console.log("");//nothing will print   //noting printed
+console.log(true);//true   //true
+console.log(+0);//0           //0
+console.log(+"");//true    //0
+
+
+for(let i=0;i<3;i++){   // 1 2 3      //undefined  undefined undefined
+    setTimeout((i)=>{
+        console.log(i);
+    },(i))
+}
+
+for(var i=0;i<3;i++){  // 1 2 3  //undefined  undefined undefined
+    setTimeout((i)=>{
+        console.log("hi",i);
+    })
+}
+
+
+for(let i=0;i<3;i++){
+    setTimeout(()=>{
+            console.log(i); //0 1 2         // 0 1 2
+    })
+}
+
+for(var i=5;i<9;i++) {  //this will throw an error
+    setTimeout(()=>{
+        console.log(i);
+    })
+}
+
+// 9999999
+// i<3
+i= 0 
+// ----
+i=1
+// ----
+i=2  
+//--
+i<3  3 <3
+
+int a = 55
+
+
+
+// This is anonymous---> arrow func
+
+var iii=5
+(()=>{
+    console.log("first",iii )
+})()
+
+
+
+(()=>{
+    console.log("second")
+})()
+
+
+
+
+
+
+const obj={
+    a:"akanksha",
+    b:{
+    c:"sai krishna",
+    d:{    
+    e:"BigOh",
+    }
+    }
+    }
+    
+
+console.log(obj['b']['d'].e)
+console.log(obj.b.d.e) //chaining
+console.log({...obj.b.d.e.join((e)=>e.join(""))})
+
+
+
+
+// ===============================
+let arr = [1, 2, 3, 4, [10, 12], 5, 6];
+// spreadArray now contains the same elements as arr, but it's a new array with a separate reference.
+let spreadArray = [...arr];
+spreadArray[2] = 100;
+spreadArray[4] = 200;
+spreadArray[4][1] = 300;
+console.log("outputs ", spreadArray, arr); 
+// Ouput:
+// outputs  [
+//     1, 2, 100, 4,
+//   200, 5,   6
+// ] [ 1, 2, 3, 4, [ 10, 12 ], 5, 6 ]
+
+
+
+
+
+// input  -> nested array
+let input = [1, 2, 3, [4, 5], [6, 7, 8, [9, 10, 11]]];
+
+
+let a=[5,6,85,56]
+let b=[44,56,8,56]
+b.push(...a)
+console.log(b)
+
+// output -> single level of array with num 
+// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+// [4, 5] -> [4,5]
+// [6, 7, 8, [9, 10, 11]] -> [6, 7, 8, 9, 10, 11]
+
+function flatten(srcArr) {
+    let newArr = [];
+    for (let i = 0; i < srcArr.length; i++) {
+        // check if elemnt -> array -> 
+        let elem = srcArr[i];
+        let isElemArr = Array.isArray(elem);
+        if (isElemArr) {
+            // flatten it again for multiple levels
+            let smalleFlattenArr = flatten(elem);
+            newArr.push(...smalleFlattenArr);
+        } else {
+            //push it to newArr;
+            newArr.push(elem);
+        }
+    }
+    return newArr;
+}
+let flattenedArr = flatten(input);
+console.log(flattenedArr);
+// Output:
+// [
+//    1, 2, 3, 4,  5,
+//    6, 7, 8, 9, 10,
+//   11
+// ]

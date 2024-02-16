@@ -20,6 +20,7 @@ router.post("/add", async (req, res) => {
 
 
 router.get("/getAllMovies", async (req, res) => {
+
   try {
     const movies = await movieModel.find();
 
@@ -38,14 +39,22 @@ router.get("/getAllMovies", async (req, res) => {
 });
 
 router.get("/getMovieById/:movieId",async (req,res)=>{
-    try{
+  // console.log("joooooo",movieId)       
+  console.log("first ddd")
+
+
+  try{
+      console.log("joooo")
         const movieId = req.params.movieId;
         const movie = await movieModel.findOne({_id:movieId})
+        console.log(movieId);
+        console.log(movie);
 
-        res.send({success:true,
-                  message:'Movie fetched Successfully',
-                  data:movie
-          })
+        res.status(200).json({
+          success:true,
+          message:"Movie fetched Successfully",
+          data:movie
+        })
     }
     catch(error){
       return res.status(500).json({
@@ -53,6 +62,12 @@ router.get("/getMovieById/:movieId",async (req,res)=>{
         message:"Internal Server Error!"
       })
     }
+})
+router.get('/test',async (req,res)=>{
+  return res.status(200).json({
+    success: true,
+    message: "Internal server error occurred",
+  });
 })
 
 router.delete("/delete/:id", async (req, res) => {

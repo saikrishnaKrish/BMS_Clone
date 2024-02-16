@@ -2,10 +2,12 @@ const router = require('express').Router();
 const showModal =  require('../models/showModal');
 
 
-router.get('/add',async (req,res)=>{
+router.post('/add',async (req,res)=>{
+   console.log("req came");
     try{
        const show = new showModal(req.body);
-       await show.save();
+       const showDetails = await show.save();
+       console.log(showDetails)
        res.status(201).json({
         success:true,
         message:"Show added!"
@@ -51,10 +53,7 @@ router.post('/delete',async (req,res)=>{
 
 router.post('/getShowById',async(req,res)=>{
    try{
-         const show = await showModal.findById(req.body.showId)
-         .populate("movie")
-         .populate("theatre");
-
+         const show = await showModal.findById(req.body.showId).populate("movie").populate("theatre");
          res.send({
             success:true,
             message:"Show fetched",

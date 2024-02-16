@@ -2,9 +2,12 @@ import { Form, Button, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { RegisterUser } from "../../apiCalls/users";
 import {useEffect} from 'react';
+import { useDispatch } from "react-redux";
+import { hideLoading, showLoading } from "../../redux/loadersSlice";
 
 const Register = () => {
   const navigate = useNavigate();
+  const dispatch =useDispatch();
   console.log("local storage",
   localStorage.getItem("token"))
 
@@ -14,15 +17,21 @@ const Register = () => {
 
   const onFinish = async (values) => {
     try {
+      dispatch(showLoading())
       const response = await RegisterUser(values);
+      console.log(response)
+      console.log(response)
       if (response.success) {
         message.success(response.message);
         navigate("/login");
       } else {
         message.error(response.message);
       }
+
+      dispatch(hideLoading())
     } catch (error) {
-      message.error(error);
+      dispatch(hideLoading())
+      message.error(error.message);
     }
   };
 

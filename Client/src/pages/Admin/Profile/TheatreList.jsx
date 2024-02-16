@@ -5,14 +5,17 @@ import { useEffect, useState } from "react";
 // import useNavigate from "react-router-dom";
 import { hideLoading, showLoading } from "../../../redux/loadersSlice";
 import {
-  DeleteTheatre,
+  // DeleteTheatre,
   GetAllTheatresByOwner,
+  UpdateTheatre,
 } from "../../../apiCalls/theatres";
 import { Table, message } from "antd";
 import Shows from "./Shows";
 
 const TheatreList = () => {
-  const { user } = useSelector((state) => state.users);
+  // const { user } = useSelector((state) => state.users);
+  const user = useSelector((state) => state.users).user;
+  console.log("user Details",user)
   const [showTheatreFormModal, setShowTheatreFormModal] = useState(false);
   const [selectedTheatre, setSelectedTheatre] = useState(null);
   const [formType, setFormType] = useState("add");
@@ -29,6 +32,7 @@ const TheatreList = () => {
       const response = await GetAllTheatresByOwner(user._id);
       if (response.success) {
         setTheatres(response.data);
+     
         console.log("y", response.data);
       } else {
         message.error(response.message);
@@ -40,23 +44,32 @@ const TheatreList = () => {
     }
   };
 
-  const handleDelete = async (id) => {
-    try {
-      dispatch(showLoading());
-      const response = await DeleteTheatre({ theatre: id });
-      dispatch(hideLoading());
-      if (response.success) {
-        message.success(response.message);
-        getData();
-      } else {
-        dispatch(hideLoading());
-        message.error(response.message);
-      }
-    } catch (error) {
-      dispatch(hideLoading());
-      message.error(error.message);
+  const handleStatusChange =async (theatre)=>{
+    console.log("theatre",theatre)
+  try{
+    dispatch(showLoading());
+
+    const response = await UpdateTheatre({
+      ...theatre,
+      theatreId:theatre._id,
+      isActive:!theatre.isActive
+    })
+    if(response.success){
+      setTheatres(response.data);
+      getData()
+    }else{
+      message.error(response.message);
     }
-  };
+    dispatch(hideLoading());
+
+  } 
+
+  catch(error){
+    message.error(error)
+    dispatch(hideLoading())
+    console.log(error)
+  }
+  }
 
   const columns = [
     { title: "Name", dataIndex: "name" },
@@ -67,6 +80,7 @@ const TheatreList = () => {
       title: "Status",
       dataIndex: "isActive",
       render: (text, record) => {
+        console.log(record.isActive)
         if (text) {
           return "Approved";
         } else {
@@ -77,30 +91,44 @@ const TheatreList = () => {
     {
       title: "Action",
       dataIndex: "action",
+      // render: (text, record) => {
+      //   return (
+      //     <div className="flex gap-1">
+      //           {record.isActive && (
+      //             <span 
+      //               className="undeline"
+      //               onClick={()=>handleStatusChange(record)}
+      //             >
+      //               Block
+      //             </span>
+      //           )}
+      //           {!record.isActive && (
+      //             <span
+      //             className="undeline"
+      //             onClick={()=>handleStatusChange(record)}>
+      //                 Approve
+      //             </span>
+      //           )}
+      //     </div>
+      //   );
+      // },
       render: (text, record) => {
         return (
-          <div className="flex gap-1 items-center">
-            <i
-              className="ri-delete-bin-line"
-              onClick={() => handleDelete(record._id)}
-            ></i>
-            <i
-              className="ri-pencil-line"
-              onClick={() => {
-                setFormType("edit");
-                setSelectedTheatre(record);
-                setShowTheatreFormModal(true);
-              }}
-            ></i>
+          <div className="flex gap-1">
             {record.isActive && (
               <span
                 className="underline"
-                onClick={() => {
-                  setSelectedTheatre(record);
-                  setOpenShowsModal(true);
-                }}
+                 onClick={() => handleStatusChange(record)}
               >
-                Shows
+                Block
+              </span>
+            )}
+            {!record.isActive && (
+              <span
+                className="underline"
+                onClick={() => handleStatusChange(record)}
+              >
+                Approve
               </span>
             )}
           </div>

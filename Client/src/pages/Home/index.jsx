@@ -61,7 +61,7 @@ const Home = () => {
          gutter={[20]} 
          className="mt-2" 
         >
-          { movies.length > 0 && movies?.filter((movie)=>movie.title.toLowerCase().includes(searchText.toLowerCase()))
+          { movies && movies?.filter((movie)=>movie.title.toLowerCase().includes(searchText.toLowerCase()))
           .map((movie)=>(
               <Col key={movie._id}>
                 <div className="card flex flex-col gap-1 cursor-pointer"

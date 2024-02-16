@@ -40,37 +40,82 @@ router.get("/getAllTheatresByOwnerId/:userId", async (req, res) => {
   }
 });
 
-//get all unique theatres which have shows of a movie
-router.post('/getTheatresByMovieId',async (req,res)=>{
-      try{
-          const {movie,date} = req.body;
-          const shows = await showModel.find({movie:movie,date:date}).populate("theatre");
+ //get all unique theatres which have shows of a movie
+// router.post('/getTheatresByMovieId',async (req,res)=>{
+//       try{
+//           const {movie,date} = req.body;
+//           console.log("DATE",date,movie)
           
-
-            //get Unique Theatres 
-          let uniqueTheatres = [];
-          shows.forEach(()=>{
-            const theatre = uniqueTheatres.find((theatre)=>theatre._id === showModel.theatre._id);
-                if(!theatre){
-                  const showForThisTheatre = shows.filter((showObj)=>showObj.theatre._id === showModel.theatre._id);
-                  uniqueTheatres.push({...showModel.theatre._doc,shows:showForThisTheatre}) 
-                }
-          })
+//           // const shows = await showModel.find({movie,date}).populate("theatre");
+//           const shows = await showModel.find({ movie, date }).populate('theatres')
+          
+//           console.log("shows",shows,"DATE",date)
+//             //get Unique Theatres 
+//           let uniqueTheatres = [];
+//           shows.forEach(()=>{
+//             const theatre = uniqueTheatres.find((theatre)=>theatre._id === showModel.theatre._id);
+//                 if(!theatre){
+//                   const showForThisTheatre = shows.filter((showObj)=>showObj.theatre._id === showModel.theatre._id);
+//                   uniqueTheatres.push({...showModel.theatre._doc,shows:showForThisTheatre}) 
+//                 }
+//           })
         
-          res.status(200).json({
-            success:true,
-            data:uniqueTheatres,
-            message: "Theatres fetched successfully",
-          })
+//        return res.status(200).json({
+//             success:true,
+//             data:uniqueTheatres,
+//             message: "Theatres fetched successfully",
+//           })
 
-      }catch(error){
-        return res.status(500).json({
-          success: false,
-          message: "Internal Server occurred",
-          data:error
-        });
+//       } catch(error){
+//         console.log(error)
+//         return res.status(500).json({
+//           success: false,
+//           message: "Internal Server occurred",
+//           data:error
+//         });
+//       }
+// })
+
+router.post("/getTheatresByMovieId", async (req, res) => {
+
+  try {
+    const { movie, date } = req.body;
+    console.log(movie,date)
+    const shows = await showModel.find({ movie, date }).populate('movie').populate('theatre')
+
+    // get unique theatres
+    let uniqueTheatres = [];
+    shows.forEach((show) => {
+      const theatre = uniqueTheatres.find(
+        (theatre) => theatre._id === show.theatre._id
+      );
+
+      if (!theatre) {
+        const showsForThisTheatre = shows.filter(
+          (showObj) => showObj.theatre._id === show.theatre._id
+        );
+        console.log(show)
+        uniqueTheatres.push({
+            ...show.theatre._doc,
+            shows: showsForThisTheatre
+        })
       }
-})
+    });
+    console.log(uniqueTheatres)
+    return res.send({
+      success: true,
+      message: "Theatres fetched successfully",
+      data: uniqueTheatres,
+    });
+  } catch (error) {
+    console.log(error)
+   return res.send({
+      success: false,
+      message: "Something went wrong",
+      data: error,
+    });
+  }
+});
 
 //get all theatres
 router.get('/getAllTheatres',async (req,res)=>{
@@ -111,9 +156,11 @@ router.delete("/delete",async (req,res)=>{
 })
 
 //update
-router.put('/update',async (req,res)=>{
+router.put("/update",async (req,res)=>{
+    // console.log(req.body.theatreId,req.body)
     try{
-        await theatreModel.findByIdAndUpdate(req.body.theatreId,req.body)
+        const result= await theatreModel.findByIdAndUpdate(req.body.theatreId, req.body)
+        console.log("result",result);
         return res.status(200).json({
             success:true,
             message:'Theatre updated successfully'

@@ -14,11 +14,13 @@ export const GetAllMovies = async()=>{
 }
 
 export const GetMovieById = async (movieId)=>{
+    console.log(movieId)
     try{
-        console.log(movieId);
-        const response = await axiosInstance.get(`api/movies/getMovieById/${movieId}`);
+        const response = await axiosInstance.get(`/api/movies/getMovieById/${movieId}`);
+        console.log(response)
         return response.data;
-    }catch(error){
+    } 
+    catch(error){
         return error
     }
 }
